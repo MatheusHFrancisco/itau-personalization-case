@@ -7,6 +7,7 @@ requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.141.1",
     "httpx>=0.28.1",
+    "locust>=2.46.3",
     "pandas>=3.0.5",
     "prometheus-fastapi-instrumentator>=8.1.0",
     "pytest>=9.1.1",

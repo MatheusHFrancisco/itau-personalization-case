@@ -82,8 +82,6 @@ app = FastAPI(title="Personalization Service", lifespan=lifespan)
 
 from prometheus_fastapi_instrumentator import Instrumentator
 
-app = FastAPI(title="Personalization Service", lifespan=lifespan)
-
 instrumentator = Instrumentator().instrument(app)
 instrumentator.expose(app)
 
