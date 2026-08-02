@@ -119,7 +119,7 @@ GET /metrics
 
 | Categoria | Tecnologia |
 |------------|------------|
-| Linguagem | Python 3.10+ / 3.13 |
+| Linguagem | Python 3.10+ / 3.14 |
 | Framework | FastAPI |
 | Servidor ASGI | Uvicorn |
 | Machine Learning | Scikit-Learn |
