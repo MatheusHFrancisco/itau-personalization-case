@@ -1,4 +1,4 @@
-# 🚀 Itaú Personalization Service (API de Recomendação de Alta Performance)
+# 🚀 Itaú Personalization Service
 
 ![Python](https://img.shields.io/badge/Python-3.14-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.141.1-green)
@@ -26,7 +26,6 @@ Microsserviço de recomendação de produtos desenvolvido em **FastAPI** e **Mac
 - 🐳 Containerização com Docker
 - ✅ Testes automatizados com Pytest
 - 📈 Testes de carga utilizando Locust
-- 🚀 Arquitetura preparada para evolução em ambientes distribuídos
 
 ---
 
@@ -419,17 +418,13 @@ Em um ambiente corporativo com milhões de acessos simultâneos, a arquitetura p
 ## Mensageria
 
 - Apache Kafka
-- Event Streaming
-- Processamento em tempo real
 
 ---
 
 ## Feature Store Distribuída
 
 - Redis Cluster
-- Redis Sentinel
-- Redis Streams
-
+- 
 ---
 
 ## Infraestrutura
@@ -445,19 +440,13 @@ Em um ambiente corporativo com milhões de acessos simultâneos, a arquitetura p
 - Prometheus
 - Grafana
 - OpenTelemetry
-- Jaeger
-- Loki
 
 ---
 
 ## MLOps
 
 - MLflow
-- Model Registry
 - CI/CD para modelos
-- Monitoramento de Drift
-
----
 
 ---
 
@@ -478,28 +467,11 @@ O microsserviço já conta com instrumentação nativa cobrindo os pilares funda
 
 Caso este microsserviço fosse integrado ao ecossistema de uma grande instituição com milhões de acessos simultâneos, a estratégia de observabilidade evoluiria para:
 
-* **Tracing Distribuído (OpenTelemetry + Jaeger / Tempo):**
+* **Tracing Distribuído (OpenTelemetry)
   * *O que faria:* Mapearia o ciclo de vida completo de ponta a ponta. Se uma recomendação falhasse ou demorasse, conseguiríamos rastrear exatamente onde o tempo foi gasto (ex: se o gargalo ocorreu na serialização do JSON, no cálculo do *propensity score* do Scikit-Learn ou na busca em cache).
-* **Alertas Inteligentes (Prometheus + Alertmanager / PagerDuty):**
+* **Alertas Inteligentes (Prometheus + Alertmanager):**
   * *O que faria:* Criação de regras de disparo automático para situações críticas, como:
     * Taxa de erro HTTP 5xx acima de 1% em uma janela de 5 minutos.
     * Latência de p99 estourando o SLA estabelecido (ex: > 100ms).
-    * Alerta de *Data Drift* (quando a distribuição das features de entrada muda drasticamente, indicando que o modelo de Machine Learning precisa ser retreinado).
 * **Dashboards Executivos de MLOps (Grafana):**
-  * *O que faria:* Painéis consolidados em tempo real cruzando métricas técnicas com métricas de negócio (ex: taxa de conversão dos produtos recomendados, proporção exata de usuários atendidos por *Warm Start* vs *Cold Start* e uso de memória RAM da Feature Store).
-
-# 📌 Considerações Finais
-
-Este projeto demonstra uma **arquitetura moderna** para sistemas de recomendação baseada em microsserviços, conciliando práticas de Engenharia de Software, Machine Learning e Observabilidade.
-
-Principais destaques:
-
-- FastAPI de alta performance;
-- Pipeline de Machine Learning utilizando Scikit-Learn;
-- Carregamento otimizado através do ciclo de vida (`lifespan`);
-- Estratégias para Warm Start e Cold Start;
-- Feature Store residente em memória;
-- Logs estruturados em JSON;
-- Métricas compatíveis com Prometheus;
-- Testes automatizados e testes de carga;
-- Arquitetura preparada para evolução em ambientes distribuídos.
+  * *O que faria:* Painéis consolidados em tempo real cruzando métricas técnicas com métricas de negócio (ex: taxa de conversão dos produtos recomendados, proporção exata de usuários atendidos por *Warm Start* vs *Cold Start* e uso da Feature Store).
