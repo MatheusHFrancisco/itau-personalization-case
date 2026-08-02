@@ -3,14 +3,12 @@ from src.ita_personalization_service.main import app
 from src.ita_personalization_service.main import FeatureStore
 
 def test_health_check():
-    """Testa se a API está viva e respondendo."""
     with TestClient(app) as client:
         response = client.get("/health")
         assert response.status_code == 200
         assert response.json()["status"] == "ok"
 
 def test_warm_start_recommendation():
-    """Testa o modelo com um usuário existente no histórico."""
     with TestClient(app) as client:
         response = client.get("/recommendations/u_0231")
         assert response.status_code == 200
@@ -22,7 +20,6 @@ def test_warm_start_recommendation():
         assert isinstance(data["recommendations"][0]["score"], float)
 
 def test_cold_start_recommendation():
-    """Testa a rede de segurança (fallback) para um usuário virgem."""
     with TestClient(app) as client:
         response = client.get("/recommendations/u_9999_novo")
         assert response.status_code == 200
@@ -33,7 +30,6 @@ def test_cold_start_recommendation():
         assert len(data["recommendations"]) == 5
 
 def test_unit_feature_store_build():
-    """Teste unitário isolado: garante que o cálculo de features está correto."""
     store = FeatureStore()
     store.build()
     
