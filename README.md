@@ -1,4 +1,4 @@
-# 🚀 Itaú Personalization Service
+# Personalization Service
 
 ![Python](https://img.shields.io/badge/Python-3.14-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.141.1-green)
@@ -13,22 +13,6 @@ Microsserviço de recomendação de produtos desenvolvido em **FastAPI** e **Mac
 
 ---
 
-# ✨ Features
-
-- 🚀 API REST desenvolvida com FastAPI
-- 🤖 Sistema de recomendação utilizando Scikit-Learn
-- 🔥 Pipeline Warm Start para usuários conhecidos
-- ❄️ Estratégia de Cold Start para novos usuários
-- ⚡ Carregamento otimizado utilizando `lifespan`
-- 🧠 Feature Store residente em memória
-- 📊 Métricas compatíveis com Prometheus
-- 📝 Logs estruturados utilizando Structlog
-- 🐳 Containerização com Docker
-- ✅ Testes automatizados com Pytest
-- 📈 Testes de carga utilizando Locust
-
----
-
 # 🏗️ 1. Arquitetura do Sistema
 
 O microsserviço realiza o carregamento da base de produtos, eventos e do modelo de Machine Learning durante o **startup** da aplicação.
@@ -38,6 +22,32 @@ Essa estratégia elimina leituras síncronas de disco durante as requisições, 
 ### Fluxo da aplicação
 
 <img width="1833" height="600" alt="estrutura1" src="https://github.com/user-attachments/assets/3b01275d-80a3-4349-96e7-948ada8732f7" />
+
+---
+
+<img width="331" height="198" alt="image" src="https://github.com/user-attachments/assets/f7834ae3-34db-4c7f-914e-7cdee32bface" />
+
+---
+
+<img width="566" height="418" alt="image" src="https://github.com/user-attachments/assets/013b920c-9924-4a6a-b981-f4036bcc06f9" />
+
+---
+
+<img width="418" height="348" alt="image" src="https://github.com/user-attachments/assets/40e9774b-97aa-4b72-bc6f-5a49578f1989" />
+
+---
+
+<img width="639" height="359" alt="image" src="https://github.com/user-attachments/assets/df868c60-b1a9-41b3-9129-fedd122ac40a" />
+
+---
+
+<img width="648" height="455" alt="image" src="https://github.com/user-attachments/assets/abc39954-fe14-4d2e-9197-30c554576843" />
+
+```bash
+Recomendações geradas por Cold Start (Popularidade):
+[{'product_id': 'p_030', 'score': 0.801}, {'product_id': 'p_000', 'score': 0.652}, {'product_id': 'p_005', 'score': 0.543}, {'product_id': 'p_040', 'score': 0.541}, {'product_id': 'p_011', 'score': 0.485}]
+```
+<img width="461" height="199" alt="image" src="https://github.com/user-attachments/assets/35516fae-a388-4725-852b-4b9d32d75e2d" />
 
 ---
 
@@ -325,54 +335,7 @@ python -m pytest --cov=src --cov-report=term-missing
 
 ---
 
-# 📊 8. Estratégia de Recomendação
-
-A API possui dois fluxos principais de inferência.
-
-## Warm Start
-
-```text
-Usuário conhecido
-        │
-        ▼
-Busca histórico
-        │
-        ▼
-Feature Engineering
-        │
-        ▼
-StandardScaler
-        │
-        ▼
-Logistic Regression
-        │
-        ▼
-Propensity Score
-        │
-        ▼
-Top-K Recomendações
-```
-
----
-
-## Cold Start
-
-```text
-Novo usuário
-        │
-        ▼
-Sem histórico
-        │
-        ▼
-Ranking de Popularidade
-        │
-        ▼
-Top-K Produtos
-```
-
----
-
-# 📈 9. Performance
+# 📈 8. Performance
 
 A arquitetura foi desenhada para minimizar latência e suportar **múltiplas requisições simultâneas**.
 
@@ -409,7 +372,7 @@ locust -f locustfile.py
 
 ---
 
-# 🚀 10. Roadmap de Evolução
+# 🚀 9. Roadmap de Evolução
 
 <img width="1600" height="688" alt="image" src="https://github.com/user-attachments/assets/8d70f998-a2a2-4c39-8ed7-3b0b09c8bc8a" />
 
@@ -450,7 +413,7 @@ Em um ambiente corporativo com milhões de acessos simultâneos, a arquitetura p
 
 ---
 
-# 📈 11. Observabilidade: Estado Atual vs. Visão de Evolução
+# 📈 10. Observabilidade: Estado Atual vs. Visão de Evolução
 
 Em ambientes corporativos de missão crítica, a observabilidade não se resume apenas a "saber se a API está no ar", mas sim a entender a saúde profunda do negócio e do modelo de Machine Learning em tempo real.
 
@@ -467,7 +430,7 @@ O microsserviço já conta com instrumentação nativa cobrindo os pilares funda
 
 Caso este microsserviço fosse integrado ao ecossistema de uma grande instituição com milhões de acessos simultâneos, a estratégia de observabilidade evoluiria para:
 
-* **Tracing Distribuído (OpenTelemetry)
+* Tracing Distribuído (OpenTelemetry)
   * *O que faria:* Mapearia o ciclo de vida completo de ponta a ponta. Se uma recomendação falhasse ou demorasse, conseguiríamos rastrear exatamente onde o tempo foi gasto (ex: se o gargalo ocorreu na serialização do JSON, no cálculo do *propensity score* do Scikit-Learn ou na busca em cache).
 * **Alertas Inteligentes (Prometheus + Alertmanager):**
   * *O que faria:* Criação de regras de disparo automático para situações críticas, como:
