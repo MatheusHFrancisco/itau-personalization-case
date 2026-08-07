@@ -26,10 +26,13 @@ class FeatureStore:
         start_time = time.time()
         logger.info("Iniciando construcao da Feature Store...")
 
+
+
         events = pd.read_csv(DATA_EVENTS_PATH)
         products = pd.read_csv(DATA_PRODUCTS_PATH)
 
         self.products_df = products.copy()
+
 
         interactions = (
             events.groupby(["user_id", "product_id"])
@@ -40,6 +43,8 @@ class FeatureStore:
         events_with_cat = events.merge(
             products[["product_id", "category"]], on="product_id", how="left"
         )
+
+
 
         user_top_category_df = (
             events_with_cat.groupby(["user_id", "category"])
@@ -126,7 +131,6 @@ def health_check():
 @app.get("/recommendations/{user_id}")
 def get_recommendations(user_id: str, top_k: int = 5):
     start_time = time.time()
-    
     top_cat = store.user_top_category_map.get(user_id)
     
     if not top_cat:
@@ -143,7 +147,7 @@ def get_recommendations(user_id: str, top_k: int = 5):
         return {
             "user_id": user_id, 
             "recommendations": recs, 
-            "cold_start": True, # Garantido pelo fluxo do 'if'
+            "cold_start": True,
             "metadata": {
                 "model_version": "fallback_popularity",
                 "latency_ms": round(latency, 2)
@@ -176,7 +180,7 @@ def get_recommendations(user_id: str, top_k: int = 5):
         "recommendations": recs, 
         "cold_start": False,
         "metadata": {
-            "model_version": ml_service.model.__class__.__name__, # Extrai o nome real do modelo do Pickle
+            "model_version": ml_service.model.__class__.__name__,
             "latency_ms": round(latency, 2)
         }
     }
