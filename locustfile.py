@@ -2,7 +2,6 @@ from locust import HttpUser, task, between
 import random
 
 class ItauPersonalizationUser(HttpUser):
-    # Simula o "think time" do usuário humano no app (entre 1 e 3 segundos)
     wait_time = between(1, 3)
 
     @task(1)
